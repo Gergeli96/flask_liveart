@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
+
+<!--
+<img src="{{ url_for('static', filename='landingImage/landing.jpg') }}" class="img-fluid" alt="Responsive image">
+-->
+<img src="{{ url_for('static', filename='landingImage/landing2.png') }}" class="img-fluid" alt="Responsive image">
+
+<div class="container">
+
+  <div class="row" style="margin: 6vh 0">
+    <div class="col col-lg-5"></div>
+    <div class="col col-lg-2" style="background-color: tomato; height: 1vh"></div>
+    <div class="col col-lg-5"></div>
+  </div>
+
+  <div class="row about">
+    <p class="font-weight-normal text-center font-weight-bold">
+      Korszerű, asztalos műhelyünkkel, folyamatos fejlesztéssekkel és kiváló, csak szakemberekből álló csapatunkkal
+      sikeresen hajtjuk végre a legkülönfélébb feladatokat az épületasztalosságtól az egyedi bútorgyártásig.
+      Csapatunk jól képzett belsőépítészekből, lakberendezőkből illetve faipari szakemberekből áll akik korlátokat
+      nem ismerve minden kihívást sikeresen megoldanak az egyszerű kis terek helytakarékos megoldásairól legyen szó
+      vagy akár a legkülönbféle luxus megoldásokról.
+    </p>
+  </div>
+
+  <div class="row services" style="margin-top: 5vh">
+    <div class="col col-lg-8 text-left d-flex justify-content-start align-items-center">ÉPÜLETASZTALOS MUNKÁK KIVITELEZÉSE</div>
+    
+    <div class="col col-lg-4 d-flex justify-content-end"> <img class="roundedImage" src="{{ url_for('static', filename='works/kivitelezes.jpg') }}" alt=""> </div>
+  </div>
+
+  <div class="row services">
+    <div class="col col-lg-4 d-flex justify-content-start"> <img class="roundedImage" src="{{ url_for('static', filename='works/planning.jpg') }}" alt=""> </div>
+
+    <div class="col col-lg-8 text-right d-flex justify-content-end align-items-center">IRODABÚTOR TERVEZÉS, KIVITELEZÉS</div>
+  </div>
+
+  <div class="row services">
+    <div class="col col-lg-8 text-left d-flex justify-content-start align-items-center">FELMÉRÉST KÖVETŐEN 3D TERVEZÉS IGÉNY ESETÉN TELJES KÖRŰ LAKBERENDEZÉSI TANÁCSADÁS</div>
+
+    <div class="col col-lg-4 d-flex justify-content-end"> <img class="roundedImage" src="{{ url_for('static', filename='works/guidience.jpeg') }}" alt=""> </div>
+  </div>
+
+  <div class="row services" style="margin-bottom: 5vh">
+    <div class="col col-lg-4 d-flex justify-content-start"> <img class="roundedImage" src="{{ url_for('static', filename='works/assembling.jpeg') }}" alt=""> </div>
+
+    <div class="col col-lg-8 text-right  d-flex justify-content-end align-items-center">EGYEDI BÚTORGYÁRTÁS, BESZERELÉS</div>
+  </div>
+
+</div>
+
+<div class="minirow">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/1.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/2.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/3.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/4.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/5.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/6.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/7.jpg') }}" alt="">
+  <img class="minipicture" src="{{ url_for('static', filename='minigalery/8.jpg') }}" alt="">
+  <!-- <a href="/galery>" class="minipicture"><img src="{{ url_for('static', filename='minigalery/plus-icon.png') }}" alt=""></a> -->
+</div>
+
+<div class="d-flex flex-column contact">
+  <div class="d-flex justify-content-center" style="margin-top: 10vh">
+    <p>Amennyiven valami felkeltette az érdeklődését írjon nelünk a <span style="color: tomato">liveartdesign@liveartdesign.com</span> e-mail címen</p>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <p>vagy</p>
+  </div>
+
+  <div class="d-flex justify-content-center" style="margin-bottom: 10vh">
+    <p>hívjon minket a <span style="color: tomato">00 00 123 4567</span> es telefonszámon</p>
+  </div>
+</div>
+
+{% endblock %}

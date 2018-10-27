@@ -1,0 +1,51 @@
+* {
+  margin-left: 0px;
+  padding: 0px;
+}
+
+.about {
+  margin: 10vh 0;
+}
+
+.minirow {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 10px;
+}
+
+.minirow img {
+  width: 25%;
+  height: 25vw;
+  transition: all .2s ease-in-out;
+}
+
+.minirow img:hover {
+  transform: scale(1.1);
+}
+
+.services {
+  height: 30vh;
+}
+
+.roundedImage {
+  height: 26vh;
+  width: auto;
+  border-radius: 13vh;
+}
+
+.contact {
+  background-color: #343a40;
+  color: white;
+}
+
+
+
+
+
+@media (max-width: 650px) {
+  .minirow img {
+    width: 50%;
+    height: 50vw;
+  }
+}
