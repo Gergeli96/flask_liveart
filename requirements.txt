@@ -1,6 +1,5 @@
 Flask==1.0.2
 psycopg2==2.7.5
-WTForms==2.2.1
+Flask-WTF==0.14.2
 passlib==1.7.1
-functools==0.5
 Werkzeug==0.14.1
