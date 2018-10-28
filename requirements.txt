@@ -1,0 +1,6 @@
+pip install Flask
+pip install psycopg2
+pip install WTForms
+pip install passlib
+pip install functools
+pip install Werkzeug
