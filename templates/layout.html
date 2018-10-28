@@ -15,7 +15,10 @@
   <body>
     {% include 'includes/_header.html' %}
 
-    {% block body %}
-    {% endblock %}
+    <div>
+      <!-- {% include 'includes/_messages.html' %} -->
+      {% include 'includes/_messages.html' %}
+      {% block body %}{% endblock %}
+    </div>
   </body>
 </html>
