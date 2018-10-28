@@ -10,13 +10,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='root',
-                             db='josi',
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-
 conn = psycopg2.connect("dbname=josi user=postgres password=root host=localhost")
 
 # Check if user logged in
