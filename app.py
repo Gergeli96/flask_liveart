@@ -11,10 +11,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-conn = psycopg2.connect("dbname=josi user=postgres password=root host=localhost")
+conn = psycopg2.connect("dbname=d199cqnuh3etg2 user=ikvvfedfvqwuyg password=331551cb9825646a57c4881ef0fcf99fe84fb8729a609a302392ea11c5a5b2de host=ec2-54-243-46-32.compute-1.amazonaws.com")
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:root@localhost/josi'
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikvvfedfvqwuyg:331551cb9825646a57c4881ef0fcf99fe84fb8729a609a302392ea11c5a5b2de@ec2-54-243-46-32.compute-1.amazonaws.com/d199cqnuh3etg2'
+# adatbázisnév(Fajtálya)://felhasználó:jelszó@hoszt/adatbázis
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
