@@ -6,11 +6,44 @@ from functools import wraps
 import os
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
 
 conn = psycopg2.connect("dbname=josi user=postgres password=root host=localhost")
+db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:root@localhost/josi'
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    username = db.Column(db.String(30))
+    password = db.Column(db.String(100))
+
+    def __init__(self, name, email, username, password):
+        self.name = name
+        self.emai = email
+        self.username = username
+        self.password = password
+
+    def __repr__(self):
+        return '<Users %r>' % self.username
+
+class Images(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(210))
+    category = db.Column(db.String(45))
+
+    def __init__(self, name, category):
+        self.name = name
+        self.category = category
+
+
+    def __repr__(self):
+        return '<Images %r>' % self.username
 
 # Check if user logged in
 def is_logged_in(f):
