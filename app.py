@@ -1,12 +1,12 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
 import psycopg2
+from flask_sqlalchemy import SQLAlchemy
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 import os
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
