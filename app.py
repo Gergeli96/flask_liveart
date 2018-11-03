@@ -1,6 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
 import psycopg2
-from flask_sqlalchemy import SQLAlchemy
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
@@ -11,39 +10,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-conn = psycopg2.connect("dbname=d199cqnuh3etg2 user=ikvvfedfvqwuyg password=331551cb9825646a57c4881ef0fcf99fe84fb8729a609a302392ea11c5a5b2de host=ec2-54-243-46-32.compute-1.amazonaws.com")
-db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ikvvfedfvqwuyg:331551cb9825646a57c4881ef0fcf99fe84fb8729a609a302392ea11c5a5b2de@ec2-54-243-46-32.compute-1.amazonaws.com/d199cqnuh3etg2'
-# adatbázisnév(Fajtálya)://felhasználó:jelszó@hoszt/adatbázis
-
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    username = db.Column(db.String(30))
-    password = db.Column(db.String(100))
-
-    def __init__(self, name, email, username, password):
-        self.name = name
-        self.emai = email
-        self.username = username
-        self.password = password
-
-    def __repr__(self):
-        return '<Users %r>' % self.username
-
-class Images(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(210))
-    category = db.Column(db.String(45))
-
-    def __init__(self, name, category):
-        self.name = name
-        self.category = category
-
-
-    def __repr__(self):
-        return '<Images %r>' % self.username
+conn = psycopg2.connect("postgres://gaxhpcbbsnbkls:4acd1c7bb5b97be41e72869f3b55859fb9f36c9af77c6147bb1158c5a27207b2@ec2-46-137-75-170.eu-west-1.compute.amazonaws.com:5432/d82152peg5i3go")
 
 # Check if user logged in
 def is_logged_in(f):
