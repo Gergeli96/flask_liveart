@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 DATABASE_URL = os.environ['DATABASE_URL']
+SECRET_KEY = os.environ['SECRET_KEY']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # Check if user logged in
@@ -161,5 +162,5 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.secret_key='secret123'
+    app.secret_key = SECRET_KEY
     app.run(debug=True)
