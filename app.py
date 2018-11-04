@@ -31,7 +31,20 @@ def home():
 
 @app.route('/galery')
 def galery():
-    return render_template('galery.html')
+
+    category = request.args.get('cat', '')
+    cur = conn.cursor()
+    data = []
+
+    if not category == '':
+        cur.execute("SELECT * FROM images WHERE category = %s", [category])
+        data = cur.fetchall()
+    else:
+        cur.execute("SELECT * FROM images")
+        data = cur.fetchall()
+
+    print(request.args.get('cat', ''))
+    return render_template('galery.html', data=data)
 
 
 

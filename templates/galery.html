@@ -11,10 +11,22 @@
       <option value="3">Three</option>
     </select>
     <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button">Button</button>
+      <button class="btn btn-outline-secondary redirectBtn" type="button">Button</button>
     </div>
   </div>
 
+  {% for row in data %}
+    <p>row[1]</p>
+  {% endfor %}
+
 </div>
+
+
+<script>
+  document.querySelector('.redirectBtn').addEventListener('click', () => {
+    let category = document.querySelector('#inputGroupSelect04').nodeValue
+    window.location.href = 'http://liveart-app.herokuapp.com/boss?cat=' + category
+  })
+</script>
 
 {% endblock %}
