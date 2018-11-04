@@ -6,9 +6,12 @@
   <div class="input-group">
     <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
       <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+      <option value="konyha">konyha</option>
+      <option value="hálószoa">hálószoa</option>
+      <option value="fürdő">fürdő</option>
+      <option value="nappali">nappali</option>
+      <option value="előszoba">előszoba</option>
+      <option value="gyerekszoba">gyerekszoba</option>
     </select>
     <div class="input-group-append">
       <button class="btn btn-outline-secondary redirectBtn" type="button">Button</button>
@@ -16,7 +19,7 @@
   </div>
 
   {% for row in data %}
-    <p>{{ row[1] }}</p>
+    <img src="{{ url_for('static', filename='minigalery/'+row[1]) }}" alt="img">
   {% endfor %}
 
 </div>
@@ -24,8 +27,8 @@
 
 <script>
   document.querySelector('.redirectBtn').addEventListener('click', () => {
-    let category = document.querySelector('#inputGroupSelect04').nodeValue
-    window.location.href = 'http://liveart-app.herokuapp.com/boss?cat=' + category
+    let category = document.querySelector('#inputGroupSelect04').value
+    window.location.href = 'http://liveart-app.herokuapp.com/category?cat=' + category
   })
 </script>
 
