@@ -9,8 +9,8 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
-
-conn = psycopg2.connect("postgres://gaxhpcbbsnbkls:4acd1c7bb5b97be41e72869f3b55859fb9f36c9af77c6147bb1158c5a27207b2@ec2-46-137-75-170.eu-west-1.compute.amazonaws.com:5432/d82152peg5i3go")
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # Check if user logged in
 def is_logged_in(f):
