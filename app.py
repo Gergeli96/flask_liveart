@@ -6,11 +6,13 @@ from functools import wraps
 import os
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from whitenoise import WhiteNoise
 
 
+application = WhiteNoise(app)
 app = Flask(__name__)
 DATABASE_URL = os.environ['DATABASE_URL']
-SECRET_KEY = os.environ['SECRET_KEY']
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'XYZ')
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 # Check if user logged in
@@ -162,5 +164,5 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.secret_key = SECRET_KEY
+    #app.secret_key = 'drhrdtjertj45u56u5rzhrtz'
     app.run(debug=True)
