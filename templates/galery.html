@@ -24,7 +24,6 @@
 <div class="imageContainer">
   {% for row in data %}
     <img onclick="imgOnClick()" id="{{loop.index}}" class="galeryImg" src="{{ url_for('static', filename='uploadedImages/'+row[1]) }}">
-    <p>uploadedImages/{{row[1]}}</p>
   {% endfor %}
 </div>
 

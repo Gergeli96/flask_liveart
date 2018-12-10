@@ -13,3 +13,9 @@ create table images (
   name VARCHAR (210),
   category VARCHAR (45),
 );
+
+drop table if exists chategories;
+create table chategories (
+  id serial PRIMARY KEY,
+  category VARCHAR (45),
+);

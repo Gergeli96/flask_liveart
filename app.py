@@ -51,6 +51,7 @@ def galery():
 
 class UploadForm(Form):
     chategory = StringField('chategory', [validators.Length(min=1, max=50)])
+    name = StringField('name', [validators.Length(min=1, max=50)])
 
 
 UPLOAD_FOLDER = 'static/uploadedImages'
@@ -65,6 +66,9 @@ def allowed_file(filename):
 @is_logged_in
 def upload_file():
     form = UploadForm(request.form)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM chategories")
+    chategories = cur.fetchall()
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -78,18 +82,24 @@ def upload_file():
             return redirect('home')
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            name = form.name.data
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
 
             category = form.chategory.data
+            name = form.name.data
             cur = conn.cursor()
-            cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (filename, category))
+            cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (name, category))
+            cur.execute("INSERT INTO chategories ( category) VALUES (%s)", (category))
             conn.commit()
             cur.close()
 
             return redirect(url_for('upload_file', filename=filename))
+    pagedata = {
+        form: form,
+        chategorie: chategories
+    }
 
-    return render_template('boss.html', form=form)
+    return render_template('boss.html', data=pagedata)
 
 
 class RegisterForm(Form):
@@ -138,9 +148,6 @@ def login():
         if cur.rowcount > 0:
             # Get stored hash
             data = cur.fetchone()
-            print('adatok')
-            print(data[4])
-            print(password_candidate)
             password = data[4]
 
             # Compare Passwords
