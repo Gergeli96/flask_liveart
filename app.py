@@ -11,7 +11,8 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 DATABASE_URL = os.environ['DATABASE_URL']
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'XYZ')
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+#conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+conn = psycopg2.connect(DATABASE_URL)
 
 # Check if user logged in
 def is_logged_in(f):

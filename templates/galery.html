@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/galery.css') }}">
 <div class="container" style="margin-top: 8vh">
 
   <div class="input-group">
@@ -18,18 +18,60 @@
     </div>
   </div>
 
-  {% for row in data %}
-    <img src="{{ url_for('static', filename='uploadedImages/'+row[1]) }}" alt="img">
-  {% endfor %}
+  
+</div>
 
+<div class="imageContainer">
+  {% for row in data %}
+    <img onclick="imgOnClick()" id="{{loop.index}}" class="galeryImg" src="{{ url_for('static', filename='uploadedImages/'+row[1]) }}">
+    <p>uploadedImages/{{row[1]}}</p>
+  {% endfor %}
+</div>
+
+<div class="slide">
+  <div class="left arrow">
+    <img onclick="slideImages('left')" class="arr" src="{{ url_for('static', filename='icons/a_left.png') }}">
+  </div>
+  <div class="bigImage">
+    <img class="galeryCenter" src="">
+  </div>
+  <div class="right arrow">
+    <img onclick="slideImages('right')" class="arr" src="{{ url_for('static', filename='icons/a_right.png') }}">
+  </div>
+  <img onclick="onClose()" class="close" src="{{ url_for('static', filename='icons/close.png') }}">
 </div>
 
 
+
 <script>
+  let imagesOnTheGalery = document.querySelector('.imageContainer').querySelectorAll('img')
+  let nthImage = 0
   document.querySelector('.redirectBtn').addEventListener('click', () => {
     let category = document.querySelector('#inputGroupSelect04').value
     window.location.href = 'http://liveart-app.herokuapp.com/galery?cat=' + category
   })
+
+  function imgOnClick() {
+    document.querySelector('.slide').style.display = 'flex'
+    let image = event.target
+    document.querySelector('.bigImage').querySelector("img").src = image.src
+    nthImage = image.id
+  }
+
+  function slideImages(direction) {
+    let bigImage = document.querySelector('.bigImage')
+    if (direction == 'right' && nthImage+1 < imagesOnTheGalery.length) {
+      bigImage.querySelector("img").src = imagesOnTheGalery[nthImage+1].src
+      nthImage += 1
+    } else if (direction == 'left' && nthImage-1 >= 0) {
+      bigImage.querySelector("img").src = imagesOnTheGalery[nthImage-1].src
+      nthImage -= 1
+    }
+  }
+
+  function onClose() {
+    document.querySelector('.slide').style.display = 'none'
+  }
 </script>
 
 {% endblock %}
