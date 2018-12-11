@@ -1,6 +1,6 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
 import psycopg2
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators
+from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SubmitField, HiddenField
 from passlib.hash import sha256_crypt
 from functools import wraps
 import os
@@ -33,6 +33,10 @@ def home():
 @app.route('/galery')
 def galery():
 
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM chategories")
+    chategories = cur.fetchall()
+
     category = request.args.get('cat', '')
     cur = conn.cursor()
     data = []
@@ -45,14 +49,18 @@ def galery():
         data = cur.fetchall()
 
     print(request.args.get('cat', ''))
-    return render_template('galery.html', data=data)
+    return render_template('galery.html', data=data, chategories=chategories)
 
 
 
 class UploadForm(Form):
-    chategory = StringField('chategory', [validators.Length(min=1, max=50)])
+    chategory = HiddenField('chategory', [validators.Length(min=1, max=50)])
     name = StringField('name', [validators.Length(min=1, max=50)])
+    submit = SubmitField(label='')
 
+class ChategoryForm(Form):
+    chategory = StringField('chategory', [validators.Length(min=1, max=50)])
+    submit1 = SubmitField(label='')
 
 UPLOAD_FOLDER = 'static/uploadedImages'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -65,41 +73,46 @@ def allowed_file(filename):
 @app.route('/boss', methods=['GET', 'POST'])
 @is_logged_in
 def upload_file():
-    form = UploadForm(request.form)
+    chategoryForm = ChategoryForm(request.form)
+    imageForm = UploadForm(request.form)
     cur = conn.cursor()
     cur.execute("SELECT * FROM chategories")
     chategories = cur.fetchall()
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect('name')
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect('home')
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            name = form.name.data
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
 
-            category = form.chategory.data
-            name = form.name.data
+    if request.method == 'POST':
+
+        if "submit" in request.form:
+            if 'file' not in request.files:
+                flash('Nem választottál ki fájlt!')
+                return redirect('upload_file')
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect('upload_file')
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                category = imageForm.chategory.data
+                cur = conn.cursor()
+                cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (filename, category))
+                conn.commit()
+                cur.close()
+                flash('Sikeres fájl feltöltés!')
+                return redirect(url_for('upload_file'))
+        elif "submit1" in request.form and chategoryForm.chategory.data != '':
+            category = chategoryForm.chategory.data
             cur = conn.cursor()
-            cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (name, category))
-            cur.execute("INSERT INTO chategories ( category) VALUES (%s)", (category))
+            cur.execute("INSERT INTO chategories (category) VALUES (%s)", (category,))
             conn.commit()
             cur.close()
+            flash('Sikeres kategória feltöltés!')
+            return redirect(url_for('upload_file'))
+        else:
+            flash('Valamit elbasztál!')
+            return redirect(url_for('upload_file'))
 
-            return redirect(url_for('upload_file', filename=filename))
-    pagedata = {
-        form: form,
-        chategorie: chategories
-    }
 
-    return render_template('boss.html', data=pagedata)
+    return render_template('boss.html', form=imageForm, chategories=chategories, chategoryForm=chategoryForm)
 
 
 class RegisterForm(Form):

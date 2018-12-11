@@ -5,13 +5,9 @@
 
   <div class="input-group">
     <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-      <option selected>Choose...</option>
-      <option value="konyha">konyha</option>
-      <option value="hálószoa">hálószoa</option>
-      <option value="fürdő">fürdő</option>
-      <option value="nappali">nappali</option>
-      <option value="előszoba">előszoba</option>
-      <option value="gyerekszoba">gyerekszoba</option>
+      {% for row in chategories %}
+        <option value="{{row[1]}}">{{row[1]}}</option>
+      {% endfor %}
     </select>
     <div class="input-group-append">
       <button class="btn btn-outline-secondary redirectBtn" type="button">Button</button>

@@ -17,5 +17,5 @@ create table images (
 drop table if exists chategories;
 create table chategories (
   id serial PRIMARY KEY,
-  category VARCHAR (45),
+  category VARCHAR (45)
 );
