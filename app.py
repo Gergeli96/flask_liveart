@@ -82,6 +82,7 @@ def upload_file():
     if request.method == 'POST':
 
         if "submit" in request.form:
+            name = imageForm.name.data
             if 'file' not in request.files:
                 flash('Nem választottál ki fájlt!')
                 return redirect('upload_file')
@@ -91,10 +92,10 @@ def upload_file():
                 return redirect('upload_file')
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
                 category = imageForm.chategory.data
                 cur = conn.cursor()
-                cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (filename, category))
+                cur.execute("INSERT INTO images (name, category) VALUES (%s, %s)", (name, category))
                 conn.commit()
                 cur.close()
                 flash('Sikeres fájl feltöltés!')
