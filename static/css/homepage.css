@@ -3,6 +3,11 @@
   padding: 0px;
 }
 
+.landingImage {
+  width: 100vw;
+  height: auto;
+}
+
 .about {
   margin: 10vh 0;
 }
