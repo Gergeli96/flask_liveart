@@ -90,7 +90,9 @@ def upload_file():
                 flash('No selected file')
                 return redirect('upload_file')
             if file and allowed_file(file.filename):
-                name = imageForm.name.data + filename.rsplit('.', 1)[1]
+                extension = file.filename.rsplit('.', 1)[1]
+                name = imageForm.name.data + '.' + extension
+                print(extension)
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], name))
                 category = imageForm.chategory.data
