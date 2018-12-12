@@ -54,7 +54,7 @@ def galery():
 
 
 class UploadForm(Form):
-    chategory = HiddenField('chategory', [validators.Length(min=1, max=50)])
+    chategory = HiddenField('', [validators.Length(min=1, max=50)])
     name = StringField('name', [validators.Length(min=1, max=50)])
     submit = SubmitField(label='')
 
